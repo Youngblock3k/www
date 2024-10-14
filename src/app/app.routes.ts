@@ -38,7 +38,7 @@ export const routes: Routes = [
     {path: 'wisdomkeys', redirectTo:'/projects/wisdomkeys', pathMatch: 'full'},
     {path: 'grapes', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://grapes.ascyt.com'}},
 
-    {path: 'open-qotd', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://discord.com/oauth2/authorize?client_id=1275472589375930418&permissions=141312&integration_type=0&scope=applications.commands+bot'}},
+    {path: 'open-qotd', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://open-qotd.ascyt.com/'}},
     {path: 'qotd', redirectTo: 'open-qotd'},
     {path: 'openqotd', redirectTo: 'open-qotd'},
     {path: 'custom-qotd', redirectTo: 'open-qotd'},
