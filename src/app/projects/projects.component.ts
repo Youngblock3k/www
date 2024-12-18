@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ThemeSwitcherService } from '../theme-switcher/theme-switcher.service';
 import { MoreProjectsViewComponent } from './more-projects-view/more-projects-view.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 export enum Type {
   Normal,
@@ -30,7 +31,8 @@ interface Project {
 export class ProjectsComponent {
   Type = Type;
 
-  public constructor(public themeSwitcher:ThemeSwitcherService, public modalService:NgbModal) {}
+  public constructor(public themeSwitcher:ThemeSwitcherService, public modalService:NgbModal, 
+    private titleService: Title, private metaService: Meta, private activatedRoute: ActivatedRoute, private router:Router) {}
 
   projects: Project[] = [
     {name: 'Tiersorter', description: 'An item ranker (soon also tierlist maker) that ranks items on simple "Which of the two is better?" decisions.', url:'https://tiersorter.ascyt.com/', image: 'assets/images/projects/tiersorter.png', type: Type.Normal},
@@ -53,5 +55,14 @@ export class ProjectsComponent {
       event.preventDefault();
       project.onClick();
     }
+  }
+
+  ngOnInit(): void {
+    this.activatedRoute.url.subscribe(url => {  
+      this.titleService.setTitle('Ascyt - Projects');
+      this.metaService.updateTag({property: 'og:title', content: 'Ascyt - Projects'});
+      this.metaService.updateTag({property: 'og:url', content: 'https://ascyt.com' + this.router.url});
+      this.metaService.updateTag({property: 'og:description', content: 'A list of projects made by Ascyt (Filip Schauer).'});
+    });
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Meta, Title } from '@angular/platform-browser';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
@@ -9,5 +10,14 @@ import { RouterModule } from '@angular/router';
   styleUrl: './not-found.component.scss'
 })
 export class NotFoundComponent {
+  constructor(private titleService: Title, private metaService: Meta, private activatedRoute: ActivatedRoute, private router: Router) { }
 
+  ngOnInit(): void {
+    this.activatedRoute.url.subscribe(url => {  
+      this.titleService.setTitle('Ascyt - Not Found');
+      this.metaService.updateTag({property: 'og:title', content: 'Ascyt - Not Found'});
+      this.metaService.updateTag({property: 'og:url', content: 'https://ascyt.com' + this.router.url});
+      this.metaService.updateTag({property: 'og:description', content: 'The page you are looking for could not be found.'});
+    });
+  }
 }
