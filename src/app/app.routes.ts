@@ -30,6 +30,7 @@ export const routes: Routes = [
     {path: 'youtube', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://www.youtube.com/channel/UC4SKoh_buY9oIHIRjqmVKpw'}},
     {path: 'reddit', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://reddit.com/u/Ascyt'}},
     {path: 'subreddit', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://reddit.com/r/Ascyt'}},
+    {path: 'bsky', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://bsky.app/profile/ascyt.bsky.social'}},
     {path: 'yt', redirectTo: '/youtube', pathMatch: 'full'},
     {path: 'smsh', redirectTo: '/projects/smsh', pathMatch: 'full'},
     {path: 'ezgpt', redirectTo: '/projects/ezgpt', pathMatch: 'full'},
