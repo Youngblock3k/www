@@ -86,7 +86,7 @@ body {
 a {
     color: var(--link);
     text-decoration: none;
-    position: relative; // Ensure the pseudo-element is positioned relative to the link
+    position: relative; 
     transition: color 0.3s;
 
     &::after {
