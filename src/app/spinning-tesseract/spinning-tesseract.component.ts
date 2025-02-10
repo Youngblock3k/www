@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Vector4 } from './vector4';
 import { RotationalPlane } from './rotational-plane';
 import { Vector2 } from './vector2';
@@ -12,7 +12,7 @@ import { rotateVectorAroundPlane } from './matrix-multiplication';
   styleUrl: './spinning-tesseract.component.scss'
 })
 export class SpinningTesseractComponent {
-  constructor() {
+  constructor(private elementRef:ElementRef) {
     this.startAnimation();
   }
 
@@ -20,6 +20,11 @@ export class SpinningTesseractComponent {
     width:  512,
     height: 512
   };
+
+  public get svgColor():string {
+    return getComputedStyle(this.elementRef.nativeElement.ownerDocument.documentElement)
+       .getPropertyValue('--link').trim();
+  }
 
   private readonly vertices:Vector4[] = [
     new Vector4(-1, -1, -1, -1), // 0
@@ -104,31 +109,25 @@ export class SpinningTesseractComponent {
   public vertexPositions:Vector2[] = [];
   public edgePositions:Vector2[][] = [];
 
-  private lastFrameTime: number = 0;
-  private animationFrameId: number | null = null;
-
   private startAnimation():void {
     this.randomizeRotationVelocities();
 
     const animate = (currentTime: number) => {
-      const deltaTime = (currentTime - this.lastFrameTime);
-      this.lastFrameTime = currentTime;
+      this.update(currentTime);
 
-      this.update(deltaTime, currentTime);
-
-      this.animationFrameId = requestAnimationFrame(animate);
+      requestAnimationFrame(animate);
     };
 
-    this.animationFrameId = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
   }
 
   private randomizeRotationVelocities():void {
     this.rotationVelocities = this.rotationVelocities.map(() => ((Math.random() + 1) * 10));
   }
 
-  private update(deltaTime: number, currentTime: number): void {
+  private update(currentTime: number): void {
     for (let i = 0; i < 6; i++) {
-      this.rotations[i] = Math.sin(this.rotationVelocities[i] * (currentTime / 1000 * 0.01)) * Math.PI;
+      this.rotations[i] = Math.sin(this.rotationVelocities[i] * (currentTime / 1000 * 0.005)) * Math.PI;
     }
 
     this.updatePositions();
