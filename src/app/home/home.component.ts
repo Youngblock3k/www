@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SpinningTesseractComponent } from '../spinning-tesseract/spinning-tesseract.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, NgbModule],
+  imports: [RouterModule, NgbModule, SpinningTesseractComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
