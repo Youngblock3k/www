@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Vector4 } from './vector4';
 import { RotationalPlane } from './rotational-plane';
 import { Vector2 } from './vector2';
+import { rotateVectorAroundPlane } from './matrix-multiplication';
 
 @Component({
   selector: 'app-spinning-tesseract',
@@ -57,26 +58,39 @@ export class SpinningTesseractComponent {
   private worldToScreenCoordinates(v:Vector4):Vector2 {
     // Orthographic projection by ignoring the z and w coordinates
     const padding:number = 10;
+    const scale = 0.5;
     return {
-      x: (v.x + 1) / 2 * (this.svgSize.width - padding * 2) + padding,
-      y: (v.y + 1) / 2 * (this.svgSize.height - padding * 2) + padding
+      x: (v.x * scale + 1) / 2 * (this.svgSize.width - padding * 2) + padding,
+      y: (v.y * scale + 1) / 2 * (this.svgSize.height - padding * 2) + padding
     };
   }
 
   public updatePositions():void {
-    this.vertexPositions = this.vertices.map(v => this.worldToScreenCoordinates(v));
+    const rotatedVertices:Vector4[] = this.vertices.map(v => this.rotateVertex(v));
+
+    this.vertexPositions = rotatedVertices.map(v => this.worldToScreenCoordinates(v));
 
     this.edgePositions = this.edges.map(edge => edge.map(i => this.vertexPositions[i]));
   }
 
-  public rotations = {
-    [RotationalPlane.XY]: 0,
-    [RotationalPlane.XZ]: 0,
-    [RotationalPlane.XW]: 0,
-    [RotationalPlane.YZ]: 0,
-    [RotationalPlane.YW]: 0,
-    [RotationalPlane.ZW]: 0
+  private rotateVertex(v:Vector4) {
+    let rotated:Vector4 = v;
+
+    for (let i = 0; i < 6; i++) {
+      rotated = rotateVectorAroundPlane(rotated, i as RotationalPlane, this.rotations[i]);
+    }
+
+    return rotated;
   }
+
+  public rotations:number[] = [
+    0.5, // XY
+    0, // XZ
+    0.5, // XW
+    0.6, // YZ
+    0, // YW
+    0, // ZW
+  ];
 
   public vertexPositions:Vector2[] = [];
   public edgePositions:Vector2[][] = [];
