@@ -1,0 +1,10 @@
+<svg [attr.width]="svgSize.width" [attr.height]="svgSize.height">
+    <!-- Vertices -->
+    @for (vertex of vertexPositions; track vertex) {
+        <circle [attr.cx]="vertex.x" [attr.cy]="vertex.y" r="3" fill="white"></circle>
+    }
+    <!-- Edges -->
+    @for (edge of edgePositions; track edge) {
+        <line [attr.x1]="edge[0].x" [attr.y1]="edge[0].y" [attr.x2]="edge[1].x" [attr.y2]="edge[1].y" stroke="white"></line>
+    }
+</svg>
