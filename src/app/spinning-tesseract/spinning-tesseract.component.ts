@@ -13,7 +13,7 @@ import { rotateVectorAroundPlane } from './matrix-multiplication';
 })
 export class SpinningTesseractComponent {
   constructor() {
-    this.updatePositions();
+    this.startAnimation();
   }
 
   public readonly svgSize = {
@@ -84,14 +84,53 @@ export class SpinningTesseractComponent {
   }
 
   public rotations:number[] = [
-    0.5, // XY
+    0, // XY
     0, // XZ
-    0.5, // XW
-    0.6, // YZ
+    0, // XW
+    0, // YZ
+    0, // YW
+    0, // ZW
+  ];
+
+  public rotationVelocities:number[] = [
+    0, // XY
+    0, // XZ
+    0, // XW
+    0, // YZ
     0, // YW
     0, // ZW
   ];
 
   public vertexPositions:Vector2[] = [];
   public edgePositions:Vector2[][] = [];
+
+  private lastFrameTime: number = 0;
+  private animationFrameId: number | null = null;
+
+  private startAnimation():void {
+    this.randomizeRotationVelocities();
+
+    const animate = (currentTime: number) => {
+      const deltaTime = (currentTime - this.lastFrameTime);
+      this.lastFrameTime = currentTime;
+
+      this.update(deltaTime, currentTime);
+
+      this.animationFrameId = requestAnimationFrame(animate);
+    };
+
+    this.animationFrameId = requestAnimationFrame(animate);
+  }
+
+  private randomizeRotationVelocities():void {
+    this.rotationVelocities = this.rotationVelocities.map(() => ((Math.random() + 1) * 10));
+  }
+
+  private update(deltaTime: number, currentTime: number): void {
+    for (let i = 0; i < 6; i++) {
+      this.rotations[i] = Math.sin(this.rotationVelocities[i] * (currentTime / 1000 * 0.01)) * Math.PI;
+    }
+
+    this.updatePositions();
+  }
 }
