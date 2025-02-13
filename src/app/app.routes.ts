@@ -18,6 +18,7 @@ export const routes: Routes = [
     {path: 'projects/tt', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://tt.ascyt.com/'}},
     {path: 'projects/tiersorter', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://tiersorter.ascyt.com/'}},
     {path: 'projects/wisdomkeys', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://wisdomkeys.ascyt.com/'}},
+    {path: 'projects/4d-projection-playground', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://ascyt.itch.io/4d-projection-playground'}},
     {path: 'about', component: AboutComponent},
     {path: 'NotFound', component: SecretComponent},
 
@@ -37,6 +38,7 @@ export const routes: Routes = [
     {path: 'tt', redirectTo: '/projects/tt', pathMatch: 'full'},
     {path: 'tiersorter', redirectTo: '/projects/tiersorter', pathMatch: 'full'},
     {path: 'wisdomkeys', redirectTo:'/projects/wisdomkeys', pathMatch: 'full'},
+    {path: '4d-projection-playground', redirectTo: '/projects/4d-projection-playground', pathMatch: 'full'},
     {path: 'grapes', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://grapes.ascyt.com'}},
 
     {path: 'open-qotd', component: RedirectingComponent, canActivate: [RedirectGuard], data: {externalUrl: 'https://open-qotd.ascyt.com/'}},
