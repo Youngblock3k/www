@@ -14,8 +14,8 @@ export class NotFoundComponent {
 
   ngOnInit(): void {
     this.activatedRoute.url.subscribe(url => {  
-      this.titleService.setTitle('Ascyt - Not Found');
-      this.metaService.updateTag({property: 'og:title', content: 'Ascyt - Not Found'});
+      this.titleService.setTitle('Ascyt • Not Found');
+      this.metaService.updateTag({property: 'og:title', content: 'Ascyt • Not Found'});
       this.metaService.updateTag({property: 'og:url', content: 'https://ascyt.com' + this.router.url});
       this.metaService.updateTag({property: 'og:description', content: 'The page you are looking for could not be found.'});
     });

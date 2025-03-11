@@ -18,8 +18,8 @@ export class ContactComponent {
  
   ngOnInit(): void {
     this.activatedRoute.url.subscribe(url => {
-      this.titleService.setTitle('Ascyt - Contact');
-      this.metaService.updateTag({property: 'og:title', content: 'Ascyt - Contact'});
+      this.titleService.setTitle('Ascyt • Contact');
+      this.metaService.updateTag({property: 'og:title', content: 'Ascyt • Contact'});
       this.metaService.updateTag({property: 'og:url', content: 'https://ascyt.com' + this.router.url});
       this.metaService.updateTag({property: 'og:description', content: 'Contact information about Ascyt (Filip Schauer), including Email, Discord, GitHub and more.'});
     });

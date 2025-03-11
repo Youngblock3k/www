@@ -1,26 +1,48 @@
-.url {
-    color: var(--link);
-    opacity: 0;
-    transition: 0.3s;
-    text-decoration: underline;
-    text-align: right;
-    justify-content: flex-end;
-    display:flex;
-    margin-top: -25px;
-}
-
-.list-group-item, .list-group-item-action {
+.list-group-item,
+.list-group-item-action {
     height: 42px;
     border-width: 1px;
     margin-bottom: -1px;
+    display: flex; // Use flexbox
+    align-items: center; // Center items vertically
+    justify-content: space-between; // Space between the text and the link
+
+    &::after {
+        display: none;
+    }
 
     &:hover {
         .url {
             opacity: 1;
             transition: 0.2s;
+            color: var(--link-hover);
+
+            &::after {
+                width: 100%; // Extend the underline to full width
+            }
         }
     }
-}   
+}
+
+.url {
+    color: var(--link);
+    opacity: 1;
+    transition: 0.3s;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 1px; // Adjust the thickness of the underline
+        background-color: var(--link-hover);
+        transition: width 0.3s ease-in-out;
+    }
+}
 
 .list-group {
     margin-bottom: 15px;

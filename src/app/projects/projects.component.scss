@@ -54,7 +54,7 @@ a {
 .background-image {
     position: relative;
     padding-right: 10px;
-    background-size: 150%;
+    background-size: 100%;
     border-radius: 3px;
     border: none;
 }
@@ -97,6 +97,7 @@ a {
 
 .card-subtitle {
     font-style: italic;
+    font-size: 0.75em;
 }
 
 .row {

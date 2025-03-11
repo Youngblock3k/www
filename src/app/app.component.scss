@@ -6,10 +6,16 @@
 
     transition: 0.2s;
 }
+
 .nav-link {
     padding: 20px;
     margin: 0 10px;
+
+    &::after {
+        display: none;
+    }
 }
+
 .nav-link {
     color: var(--front-mid);
     transition: 0.2s;
@@ -17,24 +23,27 @@
     text-decoration: underline;
     text-decoration-color: var(--back-high);
 }
+
 .nav-link:hover {
     color: var(--mid);
     transition: 0.2s;
 }
+
 .nav-item.active>.nav-link {
     color: var(--front);
 
     text-decoration-color: var(--front);
 
     text-shadow:
-    -1px -1px 5px var(--back-low),
-    1px -1px 5px var(--back-low),
-    -1px 1px 5px var(--back-low),
-    1px 1px 5px var(--back-low);
+        -1px -1px 5px var(--back-low),
+        1px -1px 5px var(--back-low),
+        -1px 1px 5px var(--back-low),
+        1px 1px 5px var(--back-low);
 
     padding: 20px;
     transition: 0.2s;
 }
+
 .nav-item.active>.nav-link:hover {
     color: var(--front);
     transition: 0.2s;
@@ -46,36 +55,52 @@
     &.dark {
         filter: invert(0);
     }
+
     &.light {
         filter: invert(1);
     }
 }
 
 
-a>.logo {
-    border-radius: 100%;
-    transition: 0.3s;
-    width: 50px;
-    height: 50px;
+.logo {
+    &::after {
+        display: none;
+    }
+
+    img {
+        border-radius: 100%;
+        transition: 0.3s;
+        width: 50px;
+        height: 50px;
+    }
 }
-a:hover>.logo {
-    transition: 0.2s;
-    transform: rotate(10deg) scale(1.25);
-    filter: brightness(1.25);
+
+.logo:hover {
+    img {
+        transition: 0.2s;
+        transform: rotate(10deg) scale(1.25);
+        filter: brightness(1.25);
+    }
 }
 
 .notice {
     color: var(--back-low);
     font-size: small;
 }
+
 .notice>a {
     color: var(--back-low);
     text-decoration: underline;
     text-decoration-color: var(--back-low);
     transition: 0.2s;
+
+    &::after {
+        display: none; // Remove the underline effect
+    }
 }
+
 .notice>a:hover {
-    color: var(--link-hover);
-    text-decoration-color: var(--link-hover);
+    color: var(--link);
+    text-decoration-color: var(--link);
     transition: 0.2s;
 }
