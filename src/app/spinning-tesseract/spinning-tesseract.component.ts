@@ -1,4 +1,4 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, signal, Signal } from '@angular/core';
 import { Vector4 } from './vector4';
 import { RotationalPlane } from './rotational-plane';
 import { Vector2 } from './vector2';
@@ -73,9 +73,9 @@ export class SpinningTesseractComponent {
   public updatePositions():void {
     const rotatedVertices:Vector4[] = this.vertices.map(v => this.rotateVertex(v));
 
-    this.vertexPositions = rotatedVertices.map(v => this.worldToScreenCoordinates(v));
+    this.vertexPositions.set(rotatedVertices.map(v => this.worldToScreenCoordinates(v)));
 
-    this.edgePositions = this.edges.map(edge => edge.map(i => this.vertexPositions[i]));
+    this.edgePositions.set(this.edges.map(edge => edge.map(i => this.vertexPositions()[i])));
   }
 
   private rotateVertex(v:Vector4) {
@@ -106,8 +106,8 @@ export class SpinningTesseractComponent {
     0, // ZW
   ];
 
-  public vertexPositions:Vector2[] = [];
-  public edgePositions:Vector2[][] = [];
+  public vertexPositions = signal<Vector2[]>([]);
+  public edgePositions = signal<Vector2[][]>([]);
 
   private startAnimation():void {
     this.randomizeRotationVelocities();
