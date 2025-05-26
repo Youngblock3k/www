@@ -10,4 +10,15 @@
         />
     </div>
     <label class="mb-1">Dark</label>
-</div>
+
+  <!-- Toggle Theme Script -->
+  <script>
+    const themeCheckbox = document.getElementById('themeCheckbox');
+    const discordFrame = document.getElementById('discordFrame');
+
+    themeCheckbox.addEventListener('change', () => {
+      const isDark = themeCheckbox.checked;
+      document.body.classList.toggle('dark-mode', isDark);
+      discordFrame.src = `https://discord.com/widget?id=1173638713272717342&theme=${isDark ? 'dark' : 'light'}`;
+    });
+  </script>
