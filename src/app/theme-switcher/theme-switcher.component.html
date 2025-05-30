@@ -1,31 +1,75 @@
-<div class="theme-switcher d-flex align-items-center">
-    <label class="mb-1" style="margin-right: 0.5rem">Light</label>
-    <div class="form-check form-switch">
-        <input
-            class="form-check-input"
-            type="checkbox"
-            id="themeSwitch"
-        />
-    </div>
-    <label class="mb-1">Dark</label>
-</div>
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  padding: 6px 12px;
+  border-radius: 40px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-<script>
-    // Detect saved theme or default to light
-    function applyTheme(theme) {
-        document.body.classList.toggle('dark-theme', theme === 'dark');
-        document.body.classList.toggle('light-theme', theme === 'light');
-        localStorage.setItem('theme', theme);
-        document.getElementById('themeSwitch').checked = (theme === 'dark');
-    }
+.theme-toggle span {
+  font-size: 0.9em;
+  font-weight: bold;
+}
 
-    // Initialize theme on load
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    applyTheme(savedTheme);
+.mode-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+}
 
-    // Add toggle event
-    document.getElementById('themeSwitch').addEventListener('change', function () {
-        const newTheme = this.checked ? 'dark' : 'light';
-        applyTheme(newTheme);
-    });
-</script>
+.mode-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #444;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "🌞";
+  height: 24px;
+  width: 24px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #f0f0f0;
+  color: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2d87ff;
+}
+
+input:checked + .slider:before {
+  transform: translateX(30px);
+  content: "🌙";
+}
+
+.nav-wrapper {
+  background-color: var(--nav-bg);
+  text-align: center;
+  padding-bottom: 20px;
+}
