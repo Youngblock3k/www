@@ -1,13 +1,31 @@
 <div class="theme-switcher d-flex align-items-center">
-    <label class="mb-1" style="margin-right:0.5rem">Light</label>
+    <label class="mb-1" style="margin-right: 0.5rem">Light</label>
     <div class="form-check form-switch">
         <input
             class="form-check-input"
             type="checkbox"
             id="themeSwitch"
-            (change)="toggleTheme()"
-            [checked]="!themeSwitcher.isLightTheme"
         />
     </div>
     <label class="mb-1">Dark</label>
 </div>
+
+<script>
+    // Detect saved theme or default to light
+    function applyTheme(theme) {
+        document.body.classList.toggle('dark-theme', theme === 'dark');
+        document.body.classList.toggle('light-theme', theme === 'light');
+        localStorage.setItem('theme', theme);
+        document.getElementById('themeSwitch').checked = (theme === 'dark');
+    }
+
+    // Initialize theme on load
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    // Add toggle event
+    document.getElementById('themeSwitch').addEventListener('change', function () {
+        const newTheme = this.checked ? 'dark' : 'light';
+        applyTheme(newTheme);
+    });
+</script>
